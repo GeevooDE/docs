@@ -75,6 +75,7 @@ If you have any questions or concerns about using OAuth2 with Geevoo, please do 
 More information and code examples can be found on the official [Laravel documentation](https://laravel.com/docs/8.x/passport#clients-json-api).
 
 ## Available scopes
+
 | Scope        | Description                                                                                   |
 |--------------|-----------------------------------------------------------------------------------------------|
 | user-info    | Get personal information of user such as id, name, email & date of birth.                     |
