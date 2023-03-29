@@ -77,7 +77,7 @@ More information and code examples can be found on the official [Laravel documen
 ## Available scopes
 | Scope        | Description                                                                                   |
 |--------------|-----------------------------------------------------------------------------------------------|
-| user-info    | (Default scope) Get personal information of user such as id, name, email & date of birth.     |
+| user-info    | Get personal information of user such as id, name, email & date of birth.                     |
 | user-avatar  | Get user avatar if present. Only available using the method ``$user->getAvatar()``.           |
 | user-address | Get user address if present. Only available using the method ``$user->getAddress()``.         |
 | card         | Get user student card. Only available using the method ``$user->getCard()``.                  |
