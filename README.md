@@ -6,15 +6,15 @@
 	- [OAuth2 Clients](#OAuth2-Clients)
 	- [Still need some help?](#Still-need-some-help?)
 - [OAuth](#OAuth)
-    - [Retrieving your client id & secret]([[index#Retrieving your client id & secret]])
-    - [Available scopes]
-    - [Authorization]
-    - [Endpoints]
-	    - [Retrieve user details]
-	    - [Retrieve user image]
-	    - [Retrieve user address]
-	    - [Retrieve user student card]
-	    - [Retrieve user qr code]
+    - [Retrieving your client id & secret](#Retrieving-your-client-id-&-secret)
+    - [Available scopes](#Available-scopes)
+    - [Authorization](#Authorization)
+    - [Endpoints](#Endpoints)
+	    - [Retrieve user details](#Retrieve-user-details)
+	    - [Retrieve user image](#Retrieve-user-image)
+	    - [Retrieve user address](#Retrieve-user-address)
+	    - [Retrieve user student card](#Retrieve-user-student-card)
+	    - [Retrieve user qr code](#Retrieve-user-qr-code)
 
 <!-- /TOC -->
 
