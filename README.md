@@ -66,7 +66,7 @@ If you have any questions or concerns about using OAuth2 with Geevoo, please do 
 
 ## OAuth2 Endpoints
 | Endpoint | Method | Description |
-| -- | -- | -- |
+| --- | --- | --- |
 | /oauth/authorize | GET | Displays a page to the user where they can authorize an application to access their protected resources as part of the OAuth2 authorization process. |
 | /oauth/token | POST | Exchanges an authorization code for an access token as part of the OAuth2 authorization code grant type flow. |
 | /oauth/token/refresh | POST | Requests a new access token using a refresh token as part of the OAuth2 refresh token grant type flow. |
