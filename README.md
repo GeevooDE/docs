@@ -4,9 +4,9 @@
 - [Introduction](#Introduction)
 	- [Bugs](#Bugs)
 	- [OAuth2 Clients](#OAuth2-Clients)
-	- [Still need some help?](#Still-need-some-help?)
+	- [Still need some help?](#Still-need-some-help)
 - [OAuth](#OAuth)
-    - [Retrieving your client id & secret](#Retrieving-your-client-id-&-secret)
+    - [Retrieving your client id & secret](#Retrieving-your-client-id-and-secret)
     - [Available scopes](#Available-scopes)
     - [Authorization](#Authorization)
     - [Endpoints](#Endpoints)
@@ -41,7 +41,7 @@ You can reach us via email at [it@geevoo.de](mailto:it@geevoo.de) to submit your
 
 For more information about OAuth2 and how it works, please visit our OAuth2 page. We appreciate your interest in partnering with us and look forward to working together to create amazing applications.
 
-## Still need some help?
+## Still need some help
 
 In case you have anything on your mind, not being covered on this documentation, feel free to reach out to us anytime.
 
@@ -49,7 +49,7 @@ In case you have anything on your mind, not being covered on this documentation,
 
 Geevoo's OAuth2 functionality provides developers with the ability to create powerful applications that leverage authentication and data from the Geevoo API. With our flexible authentication options, developers can create applications that integrate seamlessly with Geevoo and deliver a world-class experience to their users.
 
-## Retrieving your client id & secret
+## Retrieving your client id and secret
 
 To retrieve the client ID and client secret for your application, you will need to contact us via email with the following information:
 
