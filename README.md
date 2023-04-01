@@ -15,6 +15,7 @@
 	    - [Retrieve user address](#Retrieve-user-address)
 	    - [Retrieve user student card](#Retrieve-user-student-card)
 	    - [Retrieve user qr code](#Retrieve-user-qr-code)
+- [Design Guidelines](#design-guidelines)
 
 <!-- /TOC -->
 
@@ -139,3 +140,38 @@ The `/oauth/qr` endpoint requires the qr `scope` to access and returns a one-tim
 This endpoint can be useful for client applications that need to provide a QR code for user authentication or verification purposes. It is important to note that the QR code is one-time use only and must be redeemed as soon as it is generated, as it can be invalidated through Geevoo's scanning solution.
 
 The endpoint accepts the query parameter `detailed` as a boolean (either 0, 1, 'true', 'false', '0', '1'). This flag toggles either if detailed informations should be shown when scanning as for example address data.
+
+# Design Guidelines
+
+Any Geevoo resources such as brand-, products-names, colors, or logo may not be used in any kind that does not directly relate to our product. The usage without permission in any case is strictly prohibited. Usage allowance can be requested via email [info@geevoo.de](mailto:info@geevoo.de).
+
+## Logo
+
+The Geevoo logo is an essential part of our brand identity. Please use the following guidelines when using our logo:
+-   Always use the original Geevoo logo, which can be downloaded from our website. Do not modify or alter the logo in any way.
+-   The logo may be used in the following ways:
+    -   Geevoo Green on White
+    -   White on Geevoo Green
+    -   White Geevoo Logo on any surface as long as the contrast is big enough
+    -   Black Geevoo Logo on any surface as long as the contrast is big enough
+    -   Geevoo Green Logo on any surface as long the contrast is big enough
+-   The logo should always be used with sufficient clear space around it to ensure it is easily identifiable.
+-   Do not use the logo in a way that suggests endorsement, affiliation, or partnership with Geevoo unless you have our express permission to do so.
+-   Do not use the logo in a way that is harmful, discriminatory, or offensive.
+
+## Name
+
+The Geevoo name is an important part of our brand, and it should be used consistently in all your communications with your users. Please follow the guidelines below when referring to Geevoo:
+
+-   Always use the correct spelling and capitalization of Geevoo.
+-   Do not use our name in a way that suggests endorsement, affiliation, or partnership with Geevoo unless you have our express permission to do so.
+-   Do not use our name in a way that is harmful, discriminatory, or offensive.
+
+## Colors
+
+The Geevoo brand has specific colors that should be used consistently in your application. Please follow the guidelines below when using our colors:
+
+-   Our primary brand color is `#4CAF50` / `rgb(76,175,80)`. This color should be used prominently in your application.
+-   Our secondary color is `#3E9D41` / `rgb(62,157,65)`. This color can be used to add accents to your application.
+-   Do not use colors that are similar to our brand colors in a way that suggests endorsement, affiliation, or partnership with Geevoo unless you have our express permission to do so.
+-   Do not use colors in a way that is harmful, discriminatory, or offensive.
