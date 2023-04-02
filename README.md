@@ -159,7 +159,9 @@ The JSON response will look like this:
 			"card_type": 1,
 			"type": "SCAN",
 			"identifier": null,
-			"status": "SUCCESS"
+			"status": "SUCCESS",
+			"created_at": "2000-01-01T12:00:00",
+			"updated_at": "2000-01-01T12:00:00"
 	    },
 	    {
 			"id": "98ad...",
@@ -167,7 +169,9 @@ The JSON response will look like this:
 			"card_type": 2,
 			"type": "SCAN",
 			"identifier": null,
-			"status": "DECLINED"
+			"status": "DECLINED",
+			"created_at": "2000-01-01T12:00:00",
+			"updated_at": "2000-01-01T12:00:00"
 	    }
     ],
     "links": {
