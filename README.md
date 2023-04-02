@@ -15,6 +15,10 @@
 	    - [Retrieve user address](#Retrieve-user-address)
 	    - [Retrieve user student card](#Retrieve-user-student-card)
 	    - [Retrieve user qr code](#Retrieve-user-qr-code)
+	    - [Retrieve transactions](#retrieve-transactions)
+	    - [Change image](#change-image)
+	    - [Create custom card](#create-custom-card)
+	    - [Request data dump](#request-data-dump)
 - [Design Guidelines](#design-guidelines)
 
 <!-- /TOC -->
@@ -105,7 +109,7 @@ Geevoo provides various endpoints that can be accessed once a user has successfu
 
 ### Retrieve user details
 
-The `/oauth/user` endpoint requires the `user-info` scope to access and returns basic information about the authenticated user. The response is a JSON object with the following fields:
+The GET `/oauth/user` endpoint requires the `user-info` scope to access and returns basic information about the authenticated user. The response is a JSON object with the following fields:
 
 -   `id`: a unique identifier for the user in UUID format.
 -   `first_name`: the user's first name.
@@ -117,11 +121,11 @@ This endpoint provides a convenient way for client applications to obtain basic 
 
 ### Retrieve user image
 
-The `/oauth/avatar` endpoint requires the `user-avatar` scope to access and returns the user's avatar image as a picture. The response will be the image itself, with the Content-Type set to the mime-type of the image (typically `image/png`).
+The GET `/oauth/avatar` endpoint requires the `user-avatar` scope to access and returns the user's avatar image as a picture. The response will be the image itself, with the Content-Type set to the mime-type of the image (typically `image/png`).
 
 ### Retrieve user address
 
-The `/oauth/address` endpoint requires the `user-address` scope to access and returns the user's address information. The response is a JSON object with the following fields:
+The GET `/oauth/address` endpoint requires the `user-address` scope to access and returns the user's address information. The response is a JSON object with the following fields:
 
 -   `street`: the user's street address.
 -   `city`: the user's city.
@@ -131,15 +135,109 @@ It is important to note that all addresses returned by this endpoint are current
 
 ### Retrieve user student card
 
-The `/oauth/card` endpoint requires the `card` scope to access and returns the user's student card as an SVG image. The response will be the image itself, with the Content-Type set to `image/svg+xml`.
+The GET `/oauth/card` endpoint requires the `card` scope to access and returns the user's student card as an SVG image. The response will be the image itself, with the Content-Type set to `image/svg+xml`.
 
 ### Retrieve user qr code
 
-The `/oauth/qr` endpoint requires the qr `scope` to access and returns a one-time use QR code as an SVG image. The response will be the image itself, with the Content-Type set to `image/svg+xml`.
+The GET `/oauth/qr` endpoint requires the qr `scope` to access and returns a one-time use QR code as an SVG image. The response will be the image itself, with the Content-Type set to `image/svg+xml`.
 
 This endpoint can be useful for client applications that need to provide a QR code for user authentication or verification purposes. It is important to note that the QR code is one-time use only and must be redeemed as soon as it is generated, as it can be invalidated through Geevoo's scanning solution.
 
 The endpoint accepts the query parameter `detailed` as a boolean (either 0, 1, 'true', 'false', '0', '1'). This flag toggles either if detailed informations should be shown when scanning as for example address data.
+
+### Retrieve transactions
+
+The GET `/oauth/transactions` request requires the scope `transactions`. It takes the optional parameters `page: Int` and `perPage: Int` as query parameters. The `page`-Parameters defines the pagination page that should be shown, while the `perPage`-Parameter will change the transactions shown per page. 
+
+The JSON response will look like this:
+```json
+{
+    "data": [
+	    {
+			"id": "98ad...",
+			"card_id": "97ef...",
+			"card_type": 1,
+			"type": "SCAN",
+			"identifier": null,
+			"status": "SUCCESS"
+	    },
+	    {
+			"id": "98ad...",
+			"card_id": "97ef...",
+			"card_type": 2,
+			"type": "SCAN",
+			"identifier": null,
+			"status": "DECLINED"
+	    }
+    ],
+    "links": {
+        "first": "https://...",
+        "last": "https://...",
+        "prev": "https://...",
+        "next": "https://..."
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Zurück",
+                "active": false
+            },
+            {
+                "url": "https://...",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Weiter &raquo;",
+                "active": false
+            }
+        ],
+        "path": "https://...",
+        "per_page": 25,
+        "to": 25,
+        "total": 0
+    }
+}
+```
+
+The fields `id` and `card_id` in the `data`-Array are to be understood as our internal UUID64-Identifier. 
+The `card_type` currently have the values `1` and `2` while `1` stands for a static card and `2` for an dynamic (expiring and changing) card. 
+The `type`-field indicates the type of the transaction. Currenty there is only "SCAN". In the future there will be an implementation for RFID/NFC, etc. which will have a different type attribute.
+`identifier` is also a future field. It will indicate the identifier of the provider, which have scanned the student id. It will be `null` if it is not present at all.
+The `status` gives information on which kind of state the current scan is. It can have following values:
+- `SUCCESS`: Successfully scanned and finished.
+- `PENDING`: The scan has been initiated but not fully finished.
+- `DECLINED`: The scan has failed after verifing the details. Reason could be an expired or manipulated payload.
+- `BANNED`: The card that have been scanned has been suspended previously.
+- `TIMEOUT`: Follow-up state to `PENDING`. If the scan is not fulfilled within the next 24h, scans will be marked as timed out.
+- `UNKNOWN`: All other states that couldn't be assigned, will be marked as `UNKOWN` 
+
+### Change image
+
+The POST `/oauth/image` endpoint allows providers to update their image on Geevoo. It requires the scope `user-avatar-change`. This endpoint requires the `image` parameter to be present and the uploaded image must be in a supported image format and have a maximum size of 10MB. A successful response will return a 204 status code with no response body.
+
+In case of a validation error, a 422 status code will be returned with a JSON response that includes detailed information on what went wrong with the validation process.
+
+As the image is reviewed first by the institution, the image will not be shown in the app and student id card immediently. 
+
+### Create custom card
+
+The POST `/oauth/cards` endpoint allows clients to create a new custom card. This endpoint requires the `card-create` scope to access and expects the following parameters in the request body:
+
+-   `type`: a string specifying the encoding algorithm to use for the code. Currently supported values include `org.iso.QRCode`, `org.iso.PDF417`, `org.iso.DataMatrix`, `org.iso.Code39`, `org.iso.Code128`, `org.gs1.EAN-13`, `Codabar`, `org.ansi.Interleaved2of5`, and `org.iso.Aztec`.
+-   `value`: a string containing the payload to be encoded in the bar code. This value will not be validated against the specific bar code type, so clients must ensure that it is valid.
+-   `alias` (optional): a custom display name for the card in the Geevoo app. This should be a string with a maximum length of 255 characters.
+
+A successful response will return a 204 status code with no response body. In case of a validation error, a 422 status code will be returned with a JSON response that includes detailed information on what went wrong with the validation process.
+
+### Request data dump
+
+The `/oauth/dump-data` endpoint requires the `user-dump-data` scope to access and allows users to initiate a request to dump their data from Geevoo. This endpoint takes no parameters. A successful response will return a 204 status code with no response body.
 
 # Design Guidelines
 
